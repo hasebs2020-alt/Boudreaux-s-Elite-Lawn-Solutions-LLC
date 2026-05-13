@@ -8,9 +8,9 @@ export default function BoudreauxEliteLawnSolutions() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   // Phone, email, and location — fill these in when ready
-  const PHONE = '(XXX) XXX-XXXX'
-  const EMAIL = 'contact@boudreauxelitelawn.com'
-  const LOCATION = 'Serving [Your City] & Surrounding Areas'
+  const PHONE = '(337) 522-6495'
+  const EMAIL = 'Boudreauxselitelawn@yahoo.com'
+  const LOCATION = 'Serving Maurice, Lafayette, Scott, Abbeville & Youngsville'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
