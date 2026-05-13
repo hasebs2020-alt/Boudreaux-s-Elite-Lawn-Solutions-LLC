@@ -316,7 +316,7 @@ export default function BoudreauxEliteLawnSolutions() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1599685315640-3c5e7d9f29ec?q=80&w=2070&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1585320806297-9794b3e4aaae?q=80&w=2070&auto=format&fit=crop"
               alt="Luxury lawn"
               className="rounded-[2rem] shadow-2xl border border-white/10"
             />
