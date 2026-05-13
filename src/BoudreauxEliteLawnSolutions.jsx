@@ -3,15 +3,25 @@ import { useState } from 'react'
 export default function BoudreauxEliteLawnSolutions() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!formData.name || !formData.email || !formData.phone) return
-    setSubmitted(true)
+    setLoading(true)
+    try {
+      await fetch('https://formspree.io/f/xkoyeeod', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      setSubmitted(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const services = [
@@ -166,9 +176,10 @@ export default function BoudreauxEliteLawnSolutions() {
                     />
                     <button
                       type="submit"
-                      className="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
+                      disabled={loading}
+                      className="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100"
                     >
-                      Book Free Quote
+                      {loading ? 'Sending...' : 'Book Free Quote'}
                     </button>
                   </form>
                 </>
