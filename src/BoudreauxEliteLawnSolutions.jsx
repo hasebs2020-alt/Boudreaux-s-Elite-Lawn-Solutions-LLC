@@ -249,11 +249,11 @@ export default function BoudreauxEliteLawnSolutions() {
               High-end outdoor solutions tailored to create clean, polished, and impressive properties.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-green-500/40 hover:-translate-y-2 transition-all duration-300"
+                className="group bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-green-500/40 hover:-translate-y-2 transition-all duration-300 w-full md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.5rem)]"
               >
                 <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-all">
                   {service.icon}
@@ -334,7 +334,7 @@ export default function BoudreauxEliteLawnSolutions() {
       <section className="py-28 px-6 bg-zinc-950">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-green-500 uppercase tracking-[0.3em] text-sm mb-4">Client Reviews</p>
-          <h2 className="text-5xl font-black mb-16">Trusted By Homeowners Who Expect More</h2>
+          <h2 className="text-5xl font-black mb-16">What Our Clients Are Saying</h2>
           <div className="grid lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white/5 border border-white/10 rounded-[2rem] p-8 text-left">
