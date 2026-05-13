@@ -87,7 +87,7 @@ export default function BoudreauxEliteLawnSolutions() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <button onClick={() => scrollTo('home')} className="flex items-center">
-            <img src="/logo.png" alt="Boudreaux's Elite Lawn Solutions" className="h-14 w-auto" />
+            <img src="/logo-transparent.png" alt="Boudreaux's Elite Lawn Solutions" className="h-14 w-auto" />
           </button>
 
           {/* Desktop nav links */}
