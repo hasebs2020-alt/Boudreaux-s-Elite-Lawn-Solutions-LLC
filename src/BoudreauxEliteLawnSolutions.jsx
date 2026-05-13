@@ -87,7 +87,7 @@ export default function BoudreauxEliteLawnSolutions() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <button onClick={() => scrollTo('home')} className="flex items-center">
-            <img src="/logo-transparent.png" alt="Boudreaux's Elite Lawn Solutions" className="h-14 w-auto" />
+            <img src="/logo-transparent.png" alt="Boudreaux's Elite Lawn Solutions" className="h-14 w-auto bg-white/90 rounded-xl px-2 py-1" />
           </button>
 
           {/* Desktop nav links */}
@@ -133,8 +133,10 @@ export default function BoudreauxEliteLawnSolutions() {
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-35"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-zinc-900"></div>
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-600/10 rounded-full blur-3xl"></div>
 
         <div className="relative z-10 max-w-6xl w-full grid lg:grid-cols-2 gap-12 items-center">
           <div>
