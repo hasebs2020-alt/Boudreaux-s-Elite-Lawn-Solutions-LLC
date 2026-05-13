@@ -59,16 +59,16 @@ export default function BoudreauxEliteLawnSolutions() {
 
   const testimonials = [
     {
-      name: 'Sarah B.',
-      quote: 'My yard went from average to absolutely stunning. The attention to detail is unreal.',
+      name: 'Avery Peacock',
+      quote: 'Exceptional work and a true professional. If you want your yard looking elite, this is who you call.',
     },
     {
-      name: 'Michael R.',
-      quote: "Professional, fast, and dependable. Easily the best lawn company we've hired.",
+      name: 'Cale B.',
+      quote: 'Hardworking, efficient, and the results speak for themselves. Beautiful work — highly recommend.',
     },
     {
-      name: 'Amanda T.',
-      quote: 'Our property looks like a luxury resort every single week. Highly recommend.',
+      name: 'Casi Boudreaux Alleman',
+      quote: 'Professional, efficient, and always delivers. Exactly what you want from a lawn care service.',
     },
   ]
 
