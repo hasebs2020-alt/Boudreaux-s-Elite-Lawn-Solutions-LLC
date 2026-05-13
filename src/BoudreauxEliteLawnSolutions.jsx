@@ -83,6 +83,17 @@ export default function BoudreauxEliteLawnSolutions() {
         </svg>
       ),
     },
+    {
+      title: 'Pressure Washing',
+      description: 'High-powered pressure washing for driveways, sidewalks, patios, fences, and exterior surfaces — leaving them spotless.',
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-8 h-8">
+          <path d="M6 3v4M6 7c0 0 2 1 4 1s4-1 4-1V3M6 3h8" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M10 8v4M10 12l-4 8M10 12l4 8" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M4 20h4M12 20h4" strokeLinecap="round"/>
+        </svg>
+      ),
+    },
   ]
 
   const testimonials = [
@@ -238,7 +249,7 @@ export default function BoudreauxEliteLawnSolutions() {
               High-end outdoor solutions tailored to create clean, polished, and impressive properties.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
