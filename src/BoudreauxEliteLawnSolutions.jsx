@@ -1,4 +1,19 @@
+import { useState } from 'react'
+
 export default function BoudreauxEliteLawnSolutions() {
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!formData.name || !formData.email || !formData.phone) return
+    setSubmitted(true)
+  }
+
   const services = [
     {
       title: 'Luxury Lawn Maintenance',
@@ -20,30 +35,28 @@ export default function BoudreauxEliteLawnSolutions() {
       description:
         'Reliable, polished lawn care services for businesses, offices, and luxury commercial properties.',
     },
-  ];
+  ]
 
   const testimonials = [
     {
       name: 'Sarah B.',
-      quote:
-        'My yard went from average to absolutely stunning. The attention to detail is unreal.',
+      quote: 'My yard went from average to absolutely stunning. The attention to detail is unreal.',
     },
     {
       name: 'Michael R.',
-      quote:
-        "Professional, fast, and dependable. Easily the best lawn company we've hired.",
+      quote: "Professional, fast, and dependable. Easily the best lawn company we've hired.",
     },
     {
       name: 'Amanda T.',
-      quote:
-        'Our property looks like a luxury resort every single week. Highly recommend.',
+      quote: 'Our property looks like a luxury resort every single week. Highly recommend.',
     },
-  ];
+  ]
 
   return (
     <div className="bg-black text-white min-h-screen font-sans overflow-x-hidden">
+
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-6">
+      <section id="home" className="relative min-h-screen flex items-center justify-center px-6">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
 
@@ -65,11 +78,17 @@ export default function BoudreauxEliteLawnSolutions() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
-              <button className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-2xl hover:scale-105">
+              <button
+                onClick={() => scrollTo('contact')}
+                className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-2xl hover:scale-105"
+              >
                 Get Free Estimate
               </button>
 
-              <button className="border border-white/20 hover:border-yellow-400 hover:bg-white/5 px-8 py-4 rounded-2xl transition-all duration-300">
+              <button
+                onClick={() => scrollTo('services')}
+                className="border border-white/20 hover:border-yellow-400 hover:bg-white/5 px-8 py-4 rounded-2xl transition-all duration-300"
+              >
                 View Services
               </button>
             </div>
@@ -79,12 +98,10 @@ export default function BoudreauxEliteLawnSolutions() {
                 <h3 className="text-3xl font-bold text-yellow-400">250+</h3>
                 <p className="text-gray-400 text-sm">Properties Serviced</p>
               </div>
-
               <div>
                 <h3 className="text-3xl font-bold text-yellow-400">5★</h3>
                 <p className="text-gray-400 text-sm">Client Satisfaction</p>
               </div>
-
               <div>
                 <h3 className="text-3xl font-bold text-yellow-400">24/7</h3>
                 <p className="text-gray-400 text-sm">Reliable Support</p>
@@ -92,56 +109,83 @@ export default function BoudreauxEliteLawnSolutions() {
             </div>
           </div>
 
-          <div className="relative">
+          {/* Contact Form */}
+          <div id="contact" className="relative">
             <div className="absolute inset-0 bg-yellow-400/20 blur-3xl rounded-full"></div>
             <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-[2rem] p-8 shadow-2xl">
-              <h2 className="text-3xl font-bold mb-6">Request a Luxury Lawn Consultation</h2>
-
-              <div className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400"
-                />
-
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Phone Number"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400"
-                />
-
-                <textarea
-                  placeholder="Tell us about your property..."
-                  rows={4}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400"
-                ></textarea>
-
-                <button className="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02]">
-                  Book Free Quote
-                </button>
-              </div>
+              {submitted ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
+                  <div className="w-16 h-16 rounded-full bg-yellow-400/20 border border-yellow-400/40 flex items-center justify-center text-yellow-400 text-3xl">
+                    ✓
+                  </div>
+                  <h2 className="text-3xl font-bold">Request Received!</h2>
+                  <p className="text-gray-400 text-lg">
+                    Thanks, {formData.name}! We'll be in touch shortly to schedule your free consultation.
+                  </p>
+                  <button
+                    onClick={() => { setSubmitted(false); setFormData({ name: '', email: '', phone: '', message: '' }) }}
+                    className="mt-4 border border-white/20 hover:border-yellow-400 px-6 py-3 rounded-xl transition-all duration-300 text-sm"
+                  >
+                    Submit Another Request
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <h2 className="text-3xl font-bold mb-6">Request a Luxury Lawn Consultation</h2>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400 transition-colors"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400 transition-colors"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Phone Number"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400 transition-colors"
+                    />
+                    <textarea
+                      placeholder="Tell us about your property..."
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-yellow-400 transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
+                    >
+                      Book Free Quote
+                    </button>
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>
       </section>
 
       {/* Services */}
-      <section className="py-28 px-6 bg-gradient-to-b from-black to-zinc-950">
+      <section id="services" className="py-28 px-6 bg-gradient-to-b from-black to-zinc-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <p className="text-yellow-400 uppercase tracking-[0.3em] text-sm mb-4">
-              Elite Services
-            </p>
+            <p className="text-yellow-400 uppercase tracking-[0.3em] text-sm mb-4">Elite Services</p>
             <h2 className="text-5xl font-black">Luxury Lawn & Landscape Care</h2>
             <p className="text-gray-400 mt-6 max-w-2xl mx-auto text-lg">
-              High-end outdoor solutions tailored to create clean, polished,
-              and impressive properties.
+              High-end outdoor solutions tailored to create clean, polished, and impressive properties.
             </p>
           </div>
 
@@ -154,11 +198,8 @@ export default function BoudreauxEliteLawnSolutions() {
                 <div className="w-16 h-16 rounded-2xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 text-2xl font-bold mb-6 group-hover:scale-110 transition-all">
                   0{index + 1}
                 </div>
-
                 <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">
-                  {service.description}
-                </p>
+                <p className="text-gray-400 leading-relaxed">{service.description}</p>
               </div>
             ))}
           </div>
@@ -166,7 +207,7 @@ export default function BoudreauxEliteLawnSolutions() {
       </section>
 
       {/* About */}
-      <section className="py-28 px-6">
+      <section id="about" className="py-28 px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <img
@@ -175,34 +216,22 @@ export default function BoudreauxEliteLawnSolutions() {
               className="rounded-[2rem] shadow-2xl border border-white/10"
             />
           </div>
-
           <div>
-            <p className="text-yellow-400 uppercase tracking-[0.3em] text-sm mb-4">
-              About The Brand
-            </p>
-
-            <h2 className="text-5xl font-black leading-tight">
-              Where Luxury Meets Lawn Care
-            </h2>
-
+            <p className="text-yellow-400 uppercase tracking-[0.3em] text-sm mb-4">About The Brand</p>
+            <h2 className="text-5xl font-black leading-tight">Where Luxury Meets Lawn Care</h2>
             <p className="text-gray-400 text-lg leading-relaxed mt-8">
               Boudreaux's Elite Lawn Solutions LLC was built around one mission:
-              delivering premium-quality outdoor services that make every property
-              stand out.
+              delivering premium-quality outdoor services that make every property stand out.
             </p>
-
             <p className="text-gray-400 text-lg leading-relaxed mt-6">
               From perfectly striped lawns to upscale landscape transformations,
-              every project is approached with precision, professionalism, and a
-              luxury-first mindset.
+              every project is approached with precision, professionalism, and a luxury-first mindset.
             </p>
-
             <div className="mt-10 grid grid-cols-2 gap-6">
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                 <h3 className="text-3xl font-bold text-yellow-400">10+</h3>
                 <p className="text-gray-400 mt-2">Years Experience</p>
               </div>
-
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                 <h3 className="text-3xl font-bold text-yellow-400">100%</h3>
                 <p className="text-gray-400 mt-2">Satisfaction Focused</p>
@@ -215,27 +244,14 @@ export default function BoudreauxEliteLawnSolutions() {
       {/* Testimonials */}
       <section className="py-28 px-6 bg-zinc-950">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-yellow-400 uppercase tracking-[0.3em] text-sm mb-4">
-            Client Reviews
-          </p>
-
-          <h2 className="text-5xl font-black mb-16">
-            Trusted By Homeowners Who Expect More
-          </h2>
-
+          <p className="text-yellow-400 uppercase tracking-[0.3em] text-sm mb-4">Client Reviews</p>
+          <h2 className="text-5xl font-black mb-16">Trusted By Homeowners Who Expect More</h2>
           <div className="grid lg:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-white/5 border border-white/10 rounded-[2rem] p-8 text-left"
-              >
+              <div key={index} className="bg-white/5 border border-white/10 rounded-[2rem] p-8 text-left">
                 <div className="text-yellow-400 text-3xl mb-6">★★★★★</div>
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  "{testimonial.quote}"
-                </p>
-                <div className="mt-8 font-bold text-white">
-                  {testimonial.name}
-                </div>
+                <p className="text-gray-300 text-lg leading-relaxed">"{testimonial.quote}"</p>
+                <div className="mt-8 font-bold text-white">{testimonial.name}</div>
               </div>
             ))}
           </div>
@@ -245,18 +261,18 @@ export default function BoudreauxEliteLawnSolutions() {
       {/* CTA */}
       <section className="py-28 px-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-yellow-400/10 blur-3xl"></div>
-
         <div className="relative max-w-5xl mx-auto bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-[3rem] p-14 text-black text-center shadow-2xl">
           <h2 className="text-5xl font-black leading-tight">
             Transform Your Property Into A Statement
           </h2>
-
           <p className="mt-6 text-lg max-w-2xl mx-auto text-black/80">
             Let Boudreaux's Elite Lawn Solutions LLC bring luxury-level curb appeal
             and unmatched professionalism to your home or business.
           </p>
-
-          <button className="mt-10 bg-black text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition-all duration-300">
+          <button
+            onClick={() => scrollTo('contact')}
+            className="mt-10 bg-black text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition-all duration-300"
+          >
             Schedule Your Free Estimate
           </button>
         </div>
@@ -266,30 +282,17 @@ export default function BoudreauxEliteLawnSolutions() {
       <footer className="border-t border-white/10 py-10 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
-            <h3 className="text-2xl font-black text-yellow-400">
-              Boudreaux's Elite Lawn Solutions LLC
-            </h3>
-            <p className="text-gray-500 mt-2">
-              Premium Lawn Care & Landscape Solutions
-            </p>
+            <h3 className="text-2xl font-black text-yellow-400">Boudreaux's Elite Lawn Solutions LLC</h3>
+            <p className="text-gray-500 mt-2">Premium Lawn Care & Landscape Solutions</p>
           </div>
-
           <div className="flex gap-8 text-gray-400">
-            <a href="#" className="hover:text-yellow-400 transition-colors">
-              Home
-            </a>
-            <a href="#" className="hover:text-yellow-400 transition-colors">
-              Services
-            </a>
-            <a href="#" className="hover:text-yellow-400 transition-colors">
-              About
-            </a>
-            <a href="#" className="hover:text-yellow-400 transition-colors">
-              Contact
-            </a>
+            <button onClick={() => scrollTo('home')} className="hover:text-yellow-400 transition-colors">Home</button>
+            <button onClick={() => scrollTo('services')} className="hover:text-yellow-400 transition-colors">Services</button>
+            <button onClick={() => scrollTo('about')} className="hover:text-yellow-400 transition-colors">About</button>
+            <button onClick={() => scrollTo('contact')} className="hover:text-yellow-400 transition-colors">Contact</button>
           </div>
         </div>
       </footer>
     </div>
-  );
+  )
 }
