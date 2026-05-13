@@ -1,11 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function BoudreauxEliteLawnSolutions() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Phone, email, and location — fill these in when ready
+  const PHONE = '(XXX) XXX-XXXX'
+  const EMAIL = 'contact@boudreauxelitelawn.com'
+  const LOCATION = 'Serving [Your City] & Surrounding Areas'
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const scrollTo = (id) => {
+    setMenuOpen(false)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -27,23 +41,19 @@ export default function BoudreauxEliteLawnSolutions() {
   const services = [
     {
       title: 'Luxury Lawn Maintenance',
-      description:
-        'Precision mowing, edging, trimming, and weekly upkeep designed to keep your property looking immaculate year-round.',
+      description: 'Precision mowing, edging, trimming, and weekly upkeep designed to keep your property looking immaculate year-round.',
     },
     {
       title: 'Landscape Design',
-      description:
-        'Custom outdoor transformations with premium plants, elegant layouts, and high-end curb appeal solutions.',
+      description: 'Custom outdoor transformations with premium plants, elegant layouts, and high-end curb appeal solutions.',
     },
     {
       title: 'Mulch & Flower Bed Care',
-      description:
-        'Fresh mulch installs, weed prevention, and professionally maintained flower beds that elevate your home instantly.',
+      description: 'Fresh mulch installs, weed prevention, and professionally maintained flower beds that elevate your home instantly.',
     },
     {
       title: 'Commercial Property Care',
-      description:
-        'Reliable, polished lawn care services for businesses, offices, and luxury commercial properties.',
+      description: 'Reliable, polished lawn care services for businesses, offices, and luxury commercial properties.',
     },
   ]
 
@@ -62,12 +72,69 @@ export default function BoudreauxEliteLawnSolutions() {
     },
   ]
 
+  const navLinks = [
+    { label: 'Home', id: 'home' },
+    { label: 'Services', id: 'services' },
+    { label: 'About', id: 'about' },
+    { label: 'Contact', id: 'contact' },
+  ]
+
   return (
     <div className="bg-black text-white min-h-screen font-sans overflow-x-hidden">
 
+      {/* Sticky Nav */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 shadow-xl' : 'bg-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <button onClick={() => scrollTo('home')} className="text-left">
+            <span className="text-yellow-400 font-black text-lg leading-tight">Boudreaux's <span className="text-white">Elite</span></span>
+            <span className="text-gray-400 text-xs block tracking-widest uppercase">Lawn Solutions LLC</span>
+          </button>
+
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-8 text-sm text-gray-300">
+            {navLinks.map((link) => (
+              <button key={link.id} onClick={() => scrollTo(link.id)} className="hover:text-yellow-400 transition-colors">
+                {link.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Phone + CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <a href={`tel:${PHONE}`} className="text-yellow-400 font-bold text-sm hover:text-yellow-300 transition-colors">
+              {PHONE}
+            </a>
+            <button
+              onClick={() => scrollTo('contact')}
+              className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-5 py-2.5 rounded-xl text-sm transition-all duration-300 hover:scale-105"
+            >
+              Free Estimate
+            </button>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button className="md:hidden text-white text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? '✕' : '☰'}
+          </button>
+        </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div className="md:hidden bg-black/95 backdrop-blur-md border-t border-white/10 px-6 py-6 flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <button key={link.id} onClick={() => scrollTo(link.id)} className="text-left text-gray-300 hover:text-yellow-400 transition-colors py-2 border-b border-white/5">
+                {link.label}
+              </button>
+            ))}
+            <a href={`tel:${PHONE}`} className="text-yellow-400 font-bold mt-2">{PHONE}</a>
+          </div>
+        )}
+      </nav>
+
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center px-6">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>
+      <section id="home" className="relative min-h-screen flex items-center justify-center px-6 pt-20">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-35"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
 
         <div className="relative z-10 max-w-6xl w-full grid lg:grid-cols-2 gap-12 items-center">
@@ -87,14 +154,24 @@ export default function BoudreauxEliteLawnSolutions() {
               demand perfection.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            {/* Phone number highlight */}
+            <div className="mt-6 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-yellow-400/10 border border-yellow-400/30 flex items-center justify-center text-yellow-400 text-lg">
+                📞
+              </div>
+              <div>
+                <p className="text-gray-400 text-xs uppercase tracking-widest">Call Us Today</p>
+                <a href={`tel:${PHONE}`} className="text-yellow-400 font-bold text-lg hover:text-yellow-300 transition-colors">{PHONE}</a>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-4">
               <button
                 onClick={() => scrollTo('contact')}
                 className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-2xl hover:scale-105"
               >
                 Get Free Estimate
               </button>
-
               <button
                 onClick={() => scrollTo('services')}
                 className="border border-white/20 hover:border-yellow-400 hover:bg-white/5 px-8 py-4 rounded-2xl transition-all duration-300"
@@ -105,7 +182,7 @@ export default function BoudreauxEliteLawnSolutions() {
 
             <div className="mt-12 flex items-center gap-10">
               <div>
-                <h3 className="text-3xl font-bold text-yellow-400">250+</h3>
+                <h3 className="text-3xl font-bold text-yellow-400">50+</h3>
                 <p className="text-gray-400 text-sm">Properties Serviced</p>
               </div>
               <div>
@@ -199,7 +276,6 @@ export default function BoudreauxEliteLawnSolutions() {
               High-end outdoor solutions tailored to create clean, polished, and impressive properties.
             </p>
           </div>
-
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
             {services.map((service, index) => (
               <div
@@ -216,6 +292,25 @@ export default function BoudreauxEliteLawnSolutions() {
           </div>
         </div>
       </section>
+
+      {/* Service Area Banner */}
+      <div className="bg-yellow-400/10 border-y border-yellow-400/20 py-6 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-yellow-400 text-2xl">📍</span>
+            <div>
+              <p className="text-yellow-300 font-bold text-lg">{LOCATION}</p>
+              <p className="text-gray-400 text-sm">Local, reliable, and always on time</p>
+            </div>
+          </div>
+          <button
+            onClick={() => scrollTo('contact')}
+            className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 text-sm whitespace-nowrap"
+          >
+            Check if We Service Your Area
+          </button>
+        </div>
+      </div>
 
       {/* About */}
       <section id="about" className="py-28 px-6">
@@ -288,28 +383,67 @@ export default function BoudreauxEliteLawnSolutions() {
             Let Boudreaux's Elite Lawn Solutions LLC bring luxury-level curb appeal
             and unmatched professionalism to your home or business.
           </p>
-          <button
-            onClick={() => scrollTo('contact')}
-            className="mt-10 bg-black text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition-all duration-300"
-          >
-            Schedule Your Free Estimate
-          </button>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => scrollTo('contact')}
+              className="bg-black text-white px-10 py-5 rounded-2xl font-bold hover:scale-105 transition-all duration-300"
+            >
+              Schedule Your Free Estimate
+            </button>
+            <a
+              href={`tel:${PHONE}`}
+              className="bg-black/20 hover:bg-black/30 text-black px-10 py-5 rounded-2xl font-bold hover:scale-105 transition-all duration-300 border border-black/20"
+            >
+              Call {PHONE}
+            </a>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-10 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <footer className="border-t border-white/10 py-16 px-6 bg-zinc-950">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 mb-12">
+          {/* Brand */}
           <div>
             <h3 className="text-2xl font-black text-yellow-400">Boudreaux's Elite Lawn Solutions LLC</h3>
-            <p className="text-gray-500 mt-2">Premium Lawn Care & Landscape Solutions</p>
+            <p className="text-gray-500 mt-2 mb-6">Premium Lawn Care & Landscape Solutions</p>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Delivering luxury-level outdoor services to homeowners and businesses who demand the best.
+            </p>
           </div>
-          <div className="flex gap-8 text-gray-400">
-            <button onClick={() => scrollTo('home')} className="hover:text-yellow-400 transition-colors">Home</button>
-            <button onClick={() => scrollTo('services')} className="hover:text-yellow-400 transition-colors">Services</button>
-            <button onClick={() => scrollTo('about')} className="hover:text-yellow-400 transition-colors">About</button>
-            <button onClick={() => scrollTo('contact')} className="hover:text-yellow-400 transition-colors">Contact</button>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-sm">Quick Links</h4>
+            <div className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <button key={link.id} onClick={() => scrollTo(link.id)} className="text-gray-400 hover:text-yellow-400 transition-colors text-left">
+                  {link.label}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-sm">Contact Us</h4>
+            <div className="flex flex-col gap-4">
+              <a href={`tel:${PHONE}`} className="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors">
+                <span className="text-yellow-400">📞</span> {PHONE}
+              </a>
+              <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors">
+                <span className="text-yellow-400">✉️</span> {EMAIL}
+              </a>
+              <div className="flex items-center gap-3 text-gray-400">
+                <span className="text-yellow-400">📍</span> {LOCATION}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600 text-sm">
+          <p>© {new Date().getFullYear()} Boudreaux's Elite Lawn Solutions LLC. All rights reserved.</p>
+          <p>Premium Lawn Care & Landscape Solutions</p>
         </div>
       </footer>
     </div>
