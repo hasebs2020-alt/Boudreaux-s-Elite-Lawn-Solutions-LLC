@@ -229,12 +229,20 @@ export default function BoudreauxEliteLawnSolutions() {
             </p>
             <div className="mt-10 grid grid-cols-2 gap-6">
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <h3 className="text-3xl font-bold text-yellow-400">10+</h3>
-                <p className="text-gray-400 mt-2">Years Experience</p>
+                <h3 className="text-3xl font-bold text-yellow-400">⭐ 5-Star</h3>
+                <p className="text-gray-400 mt-2">Rated</p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                 <h3 className="text-3xl font-bold text-yellow-400">100%</h3>
                 <p className="text-gray-400 mt-2">Satisfaction Focused</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h3 className="text-3xl font-bold text-yellow-400">✓ Local</h3>
+                <p className="text-gray-400 mt-2">Locally Owned</p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h3 className="text-3xl font-bold text-yellow-400">✓ Insured</h3>
+                <p className="text-gray-400 mt-2">Licensed & Insured</p>
               </div>
             </div>
           </div>
